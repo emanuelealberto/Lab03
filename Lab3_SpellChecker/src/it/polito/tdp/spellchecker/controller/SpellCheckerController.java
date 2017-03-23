@@ -66,14 +66,14 @@ public class SpellCheckerController {
     	model.loadDictionary(cmbLanguage.getValue());
     	//Trasformare la frase in lista di parole miniscole e senza punteggiatura
     	String temp = txtInput.getText().toLowerCase();
-    	temp.replaceAll("[\\p{Punct}]", "");
-    	String array[]=temp.split(" ");
+    	String temp2=temp.replaceAll("[\\p{Punct}]", "");
+    	String array[]=temp2.split(" ");
     	List<String> listaParole = new ArrayList<String>();
     	for (String s: array){
     		if (s.compareTo("")!=0)
     			listaParole.add(s);
     	}
-    	ArrayList<RichWord> output= new ArrayList<RichWord>(model.spellCheckText(listaParole));
+    	ArrayList<RichWord> output= new ArrayList<RichWord>(model.ricercaDicotomica(listaParole));
     	//contare numero di parole errate
     	int contatore =0;
     	for(RichWord r : output){

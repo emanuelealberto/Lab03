@@ -41,9 +41,36 @@ public class Dictionary {
 		}return result;
 		
 	}
-
+	public List<RichWord> ricercaDicotomica(List<String>inputText){
+	List<RichWord> risultato = new LinkedList<RichWord>();
+	for (String s : inputText){
+		int low = 0;
+		int high = dictionary.size();
+		boolean trovato=false;
+			while (low<=high-1) {
+				int mid = (low+high)/2;
+				
+				if(dictionary.get(mid).compareTo(s)==0) {
+					risultato.add(new RichWord(s,true)); //valore trovato nella posizione mid
+					trovato=true;
+					break;
+			        }
+				else if (dictionary.get(mid).compareTo(s)>0) {
+					low = mid+1;
+				}
+				else {
+					high = mid-1;
+				}
+			}
+			if(!trovato){
+				risultato.add(new RichWord(s, false));
+			}
+			
+		}
+		return risultato;
+}
+	
 	public void clear() {
 		dictionary.clear();
-		
 	}
 	}
