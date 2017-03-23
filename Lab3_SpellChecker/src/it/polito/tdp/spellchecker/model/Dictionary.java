@@ -13,7 +13,7 @@ public class Dictionary {
 			BufferedReader br = new BufferedReader(fr);
 			String word;
 			while ((word=br.readLine()) !=null) {
-				String temp = new String (word);
+				String temp = new String (word.toLowerCase());
 				dictionary.add(temp);
 		}
 			br.close();
@@ -45,26 +45,29 @@ public class Dictionary {
 	List<RichWord> risultato = new LinkedList<RichWord>();
 	for (String s : inputText){
 		int low = 0;
-		int high = dictionary.size();
+		int high = dictionary.size()-1;
+		int mid;
 		boolean trovato=false;
-			while (low<=high-1) {
-				int mid = (low+high)/2;
+		
+		while (low<=high-1) {
+			mid = (low+high)/2;
 				
-				if(dictionary.get(mid).compareTo(s)==0) {
-					risultato.add(new RichWord(s,true)); //valore trovato nella posizione mid
-					trovato=true;
-					break;
-			        }
-				else if (dictionary.get(mid).compareTo(s)>0) {
-					low = mid+1;
-				}
-				else {
-					high = mid-1;
-				}
+			if(dictionary.get(mid).compareTo(s)==0) {
+				risultato.add(new RichWord(s,true)); //valore trovato nella posizione mid
+				trovato=true;
+				break;
+			    }
+			else if (dictionary.get(mid).compareTo(s)<0) {
+				low = mid+1;
 			}
-			if(!trovato){
-				risultato.add(new RichWord(s, false));
+			else if (dictionary.get(mid).compareTo(s)>0) {
+				high = mid-1;
 			}
+		}
+		if(!trovato){
+			if(dictionary.indexOf(s)==-1){
+			risultato.add(new RichWord(s, false));}
+		}
 			
 		}
 		return risultato;
